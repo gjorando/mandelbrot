@@ -7,7 +7,10 @@ SRCS=src/main.cpp\
 	 src/RGBGradient.cpp
 OBJ=$(subst src/,output/, $(subst .cpp,.o, $(SRCS)))
 
-all: mandelbrot
+all: createdirs mandelbrot
+createdirs:
+	@mkdir -p .d
+	@mkdir -p output
 mandelbrot: $(OBJ)
 	g++ -o mandelbrot output/*.o $(LIBS)
 output/%.o: src/%.cpp .d/%.d
