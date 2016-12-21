@@ -1,5 +1,7 @@
 LIBS=-lpng
-CC=$(CROSS)g++ -c -Wall -std=c++11 $(DEFINES)
+CFLAGS=-c -Wall -std=c++11 $(DEFINES)
+CC=$(CROSS)g++
+
 SRCS=src/main.cpp\
 	 src/RGBPixel.cpp\
 	 src/RGBBitmap.cpp\
@@ -14,9 +16,9 @@ createdirs:
 mandelbrot: $(OBJ)
 	g++ -o mandelbrot output/*.o $(LIBS)
 output/%.o: src/%.cpp .d/%.d
-	$(CC) $< -o $@
+	$(CC) $(CFLAGS) $< -o $@
 .d/%.d: src/%.cpp
-	$(CC) -MM $< -MF $@
+	$(CC) $(CFLAGS) -MM $< -MF $@
 clean:
 	rm -f output/*.o
 	rm mandelbrot
