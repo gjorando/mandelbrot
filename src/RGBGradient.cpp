@@ -106,8 +106,6 @@ RGBGradient::RGBGradient(const std::string &path): RGBBitmap(255, 1)
 		return;
 	}
 
-	unsigned int rowlen = png_get_rowbytes(pngData, infoData); //Should be increment*width
-
 	rows = png_get_rows(pngData, infoData);
 	for(size_t i = 0 ; i < width ; i++)
 	{
