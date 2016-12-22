@@ -131,8 +131,9 @@ int main(int argc, char *argv[])
 			case 'i':
 				try
 				{
-					iterations = stoi(optarg);
-					if(iterations<0) iterations = -iterations;
+					int itersRel = stoi(optarg);
+					if(itersRel<0) iterations = -itersRel;
+					else iterations = itersRel;
 				}
 				catch(const invalid_argument &e)
 				{
@@ -144,8 +145,9 @@ int main(int argc, char *argv[])
 			case 'W':
 				try
 				{
-					size.x = stoi(optarg);
-					if(size.x<0) size.x = -size.x;
+					int xRel = stoi(optarg);
+					if(xRel<0) size.x = -xRel;
+					else size.x = xRel;
 				}
 				catch(const invalid_argument &e)
 				{
@@ -157,8 +159,9 @@ int main(int argc, char *argv[])
 			case 'H':
 				try
 				{
-					size.y = stoi(optarg);
-					if(size.y<0) size.y = -size.y;
+					int yRel = stoi(optarg);
+					if(yRel<0) size.y = -yRel;
+					else size.y = yRel;
 				}
 				catch(const invalid_argument &e)
 				{
