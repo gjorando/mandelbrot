@@ -5,3 +5,4 @@
 * Exception handling in png loading and saving procedures
 * Interactive software to explore the set
 * Manage access overflow in methods like RGBBitmap::at
+* Buddhabrot generator
