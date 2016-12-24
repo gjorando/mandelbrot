@@ -138,6 +138,8 @@ void Mandelbrot::render(double gamma, RGBGradient &gradient)
 				double k = m_result[j*width+i];
 				if(maxK != minK)
 					k = (k-minK)/(maxK-minK); // We spread k from 0 to 1
+				else
+					k = 0.5;
 				k = pow(k, gamma); // We apply gamma
 				
 				m_pixels.at(i, j).setPixel(gradient.getPixelValue(1-k)); // 1-k because the gradient goes from the left (nearer) to the right (farer)
