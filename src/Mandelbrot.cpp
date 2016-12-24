@@ -7,7 +7,7 @@ Mandelbrot::Mandelbrot(vec2<size_t> resSize, double plotWidth, vec2d center, dou
 {
 	m_result = new double[resSize.x*resSize.y];
 	m_xmin = (-plotWidth/2) + center.x;
-	m_ymin = (-(plotWidth*resSize.y/resSize.x)/2) + center.y;
+	m_ymin = (-(plotWidth*resSize.y/resSize.x)/2) - center.y;
 	m_dIt = plotWidth/resSize.x;
 }
 
@@ -113,6 +113,7 @@ void Mandelbrot::render(double gamma, RGBGradient &gradient)
 	double minK = 1;
 	double maxK = 0;
 
+
 	for(size_t i = 0 ; i < width ; i++)
 	{
 		for(size_t j = 0 ; j < height ; j++)
@@ -125,7 +126,7 @@ void Mandelbrot::render(double gamma, RGBGradient &gradient)
 			}
 		}
 	}
-
+	
 	for(size_t i = 0 ; i < width ; i++)
 	{
 		for(size_t j = 0 ; j < height ; j++)
@@ -135,8 +136,8 @@ void Mandelbrot::render(double gamma, RGBGradient &gradient)
 			else
 			{
 				double k = m_result[j*width+i];
-				
-				k = (k-minK)/(maxK-minK); // We spread k from 0 to 1
+				if(maxK != minK)
+					k = (k-minK)/(maxK-minK); // We spread k from 0 to 1
 				k = pow(k, gamma); // We apply gamma
 				
 				m_pixels.at(i, j).setPixel(gradient.getPixelValue(1-k)); // 1-k because the gradient goes from the left (nearer) to the right (farer)

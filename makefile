@@ -30,6 +30,11 @@ clean:
 
 re: clean mandelbrot
 
+install:
+	cp ./mandelbrot /usr/bin/mandelbrot
+remove:
+	rm -f /usr/bin/mandelbrot
+
 .PHONY: clean
 
 -include $(OBJECTS:%.o=.d/%.d)
