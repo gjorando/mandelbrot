@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include "RGBBitmap.hpp"
 #include "RGBGradient.hpp"
-#include "Mandelbrot.hpp"
+#include "Buddhabrot.hpp"
 
 #define G_VERSION 1
 #define G_AUTHORS "Guillaume JORANDON"
@@ -22,7 +22,7 @@ using namespace std;
 
 void displayHelp(const string &name)
 {
-	cout << "Mandelbrot set computing v" << G_VERSION << " - " G_AUTHORS << endl << 
+	cout << "Buddhabrot set computing v" << G_VERSION << " - " G_AUTHORS << endl << 
 			"Usage: " << name << " [option(s)]" << endl <<
 			" -h\t\tDisplay this current help and exits." << endl <<
 			" -o PATH\tChange the output path (default: " << G_DEFAULT_EXPORT_PATH << ")." << endl <<
@@ -194,7 +194,7 @@ int main(int argc, char *argv[])
 	else
 		grad = new RGBGradient(gradientPath);
 	
-	Mandelbrot set(size, plotWidth, center, multiplicity);
+	Buddhabrot set(size, plotWidth, center, multiplicity);
 	
 	cout << "Computing..." << endl;
 	set.compute(iterations, antiAliasing);

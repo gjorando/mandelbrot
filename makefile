@@ -5,18 +5,18 @@ CC=$(CROSS)g++
 SRCS=src/main.cpp\
 	 src/RGBPixel.cpp\
 	 src/RGBBitmap.cpp\
-	 src/Mandelbrot.cpp\
+	 src/Buddhabrot.cpp\
 	 src/RGBGradient.cpp
 OBJ=$(subst src/,output/, $(subst .cpp,.o, $(SRCS)))
 
-all: createdirs mandelbrot
+all: createdirs buddhabrot
 
 createdirs:
 	@mkdir -p .d
 	@mkdir -p output
 
-mandelbrot: $(OBJ)
-	$(CC) -o mandelbrot output/*.o $(LIBS)
+buddhabrot: $(OBJ)
+	$(CC) -o buddhabrot output/*.o $(LIBS)
 
 output/%.o: src/%.cpp .d/%.d
 	$(CC) $(CFLAGS) $< -o $@
@@ -26,14 +26,14 @@ output/%.o: src/%.cpp .d/%.d
 
 clean:
 	rm -f output/*.o
-	rm -f mandelbrot
+	rm -f buddhabrot
 
 re: clean mandelbrot
 
 install:
-	cp ./mandelbrot /usr/bin/mandelbrot
+	cp ./mandelbrot /usr/bin/buddhabrot
 remove:
-	rm -f /usr/bin/mandelbrot
+	rm -f /usr/bin/buddhabrot
 
 .PHONY: clean
 
