@@ -6,6 +6,7 @@
 #include <cstdint>
 #include <complex>
 #include <cmath>
+#include <vector>
 
 template <typename T>
 struct vec2
@@ -63,7 +64,7 @@ private:
 	double m_xmin, //!< Abscissa of the beginning of the image (left upper point).
 		   m_ymin; //!< Ordinate of the beginning of the image (left upper point).
 	double m_dIt; //!< Increment for both abscissa and ordinate.
-	double m_multiplicity;
+	double m_multiplicity; //!< If different from 2, it's a multibrot.
 };
 
 #endif //_MANDELBROT_MANDELBROT_HPP_
