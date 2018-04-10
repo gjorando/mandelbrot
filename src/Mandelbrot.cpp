@@ -16,7 +16,7 @@ Mandelbrot::~Mandelbrot()
 	delete[] m_result;
 }
 
-void Mandelbrot::compute(unsigned int maxIterations, bool antiAliasing)
+void Mandelbrot::compute(unsigned int maxIterations, bool antiAliasing, bool julia, vec2d juliaC)
 {
 	size_t width = m_pixels.getWidth(),
 		   height = m_pixels.getHeight();
@@ -40,13 +40,19 @@ void Mandelbrot::compute(unsigned int maxIterations, bool antiAliasing)
 
 			double k = 0;
 			double a = 0;
-			double b = 0; 
+			double b = 0;
+
+			if(julia)
+			{
+				a = xi;
+				b = yi;
+			}
 
 			// We could have used std::complex, but It appears to be waaay slower.
 		
 			//Optimisation to skip the cardioid and main bulb for the standard mandelbrot set (m_multiplicity = 2)	
 			double q = (xi-0.25)*(xi-0.25)+yi*yi;
-			if((m_multiplicity == 2) && ((((xi+1)*(xi+1) + yi*yi) < 1.0f/16) || (q*(q+(xi-0.25)) < 0.25*yi*yi)))
+			if((!julia) && (m_multiplicity == 2) && ((((xi+1)*(xi+1) + yi*yi) < 1.0f/16) || (q*(q+(xi-0.25)) < 0.25*yi*yi)))
 			{
 				k = maxIterations;
 			}
@@ -57,8 +63,8 @@ void Mandelbrot::compute(unsigned int maxIterations, bool antiAliasing)
 					if(m_multiplicity == 2) // If the multiplicity is 2, we do (z)^2 + c = (a+b*i)^2 + (xi+i*yi) = a^2 - b^2 + xi + 2*a*b*yi*i
 					{
 						double prevA = a;
-						a = a*a - b*b + xi;
-						b = 2*prevA*b + yi;
+						a = a*a - b*b;
+						b = 2*prevA*b;
 					}
 					else //Otherwise we use a temporary complex for convenience. Just keep in mind that it's very slow.
 					{
@@ -66,6 +72,17 @@ void Mandelbrot::compute(unsigned int maxIterations, bool antiAliasing)
 						zT = std::pow(zT, m_multiplicity);
 						a = zT.real() + xi;
 						b = zT.imag() + yi;
+					}
+
+					if(julia)
+					{
+						a+= juliaC.x;
+						b+= juliaC.y;
+					}
+					else
+					{
+						a+= xi;
+						b+= yi;
 					}
 
 					if(!antiAliasing)

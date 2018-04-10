@@ -44,8 +44,10 @@ public:
 	 *  \param maxIterations Maximum number of iterations per pixel.
 	 *  \param gamma Gamma for the rendering.
 	 *  \param antiAliasing If true, will use a different method to get smooth gradient instead of segmented one.
+	 *  \param julia If true, will compute a Julia set instead.
+	 *  \param juliaC If julia is true, it corresponds to the c value.
 	 */
-	void compute(unsigned int maxIterations, bool antiAliasing);
+	void compute(unsigned int maxIterations, bool antiAliasing, bool julia, vec2d juliaC);
 	/*! \brief Renders the final image based on computing result. Mandelbrot::compute must have been called at least once!
 	 *  \param gamma Gamma for the rendering.
 	 *  \param gradient The gradient to use.

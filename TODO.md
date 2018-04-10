@@ -1,6 +1,6 @@
 # TODO
 
-* Allow gradients greater than 255px wide
+* Histogram coloration
 * Multi threading.
 * Exception handling in png loading and saving procedures
 * Interactive software to explore the set

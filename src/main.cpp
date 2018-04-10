@@ -17,6 +17,8 @@
 #define G_DEFAULT_ITERS 350
 #define G_DEFAULT_W 1000
 #define G_DEFAULT_H 1000
+#define G_DEFAULT_U 0
+#define G_DEFAULT_V 0
 
 using namespace std;
 
@@ -35,7 +37,10 @@ void displayHelp(const string &name)
 			" -a\t\tDisables anti-aliased computing." << endl <<
 			" -i INT\t\tSets the number of iterations (default: " << G_DEFAULT_ITERS << ")." << endl << 
 			" -W INT\t\tSets the output width (default: " << G_DEFAULT_W << ")." << endl <<
-			" -H INT\t\tSets the output height (default: " << G_DEFAULT_H << ")." << endl;
+			" -H INT\t\tSets the output height (default: " << G_DEFAULT_H << ")." << endl <<
+			" -j\t\tCompute a julia set instead." << endl <<
+			" -u REAL\tIf computing a julia set, defines the real part of c (default: " << G_DEFAULT_U << ")." << endl <<
+			" -v REAL\tIf computing a julia set, defines the imaginary part of c (default: " << G_DEFAULT_V << ")." << endl;
 
 }
 
@@ -50,10 +55,12 @@ int main(int argc, char *argv[])
 	bool antiAliasing = true;
 	unsigned int iterations = G_DEFAULT_ITERS;
 	vec2<size_t> size(G_DEFAULT_W, G_DEFAULT_H);
+	bool julia = false;
+	vec2d juliaC(G_DEFAULT_U, G_DEFAULT_V);
 
 	int options;
 
-	while((options = getopt(argc, argv, "ho:g:x:y:p:m:G:ai:W:H:")) != -1)
+	while((options = getopt(argc, argv, "ho:g:x:y:p:m:G:ai:W:H:ju:v:")) != -1)
 		switch(options)
 		{
 			case 'h':
@@ -170,13 +177,49 @@ int main(int argc, char *argv[])
 					exit(1);
 				}
 				break;
+			case 'j':
+				julia = true;
+				break;
+			case 'u':
+				try
+				{
+					juliaC.x = stod(optarg);
+				}
+				catch(const invalid_argument &e)
+				{
+					cerr << "Invalid -u argument." << endl;
+					cerr << "Try " << argv[0] << " -h for help." << endl;
+					exit(1);
+				}
+				break;
+			case 'v':
+				try
+				{
+					juliaC.y = stod(optarg);
+				}
+				catch(const invalid_argument &e)
+				{
+					cerr << "Invalid -v argument." << endl;
+					cerr << "Try " << argv[0] << " -h for help." << endl;
+					exit(1);
+				}
+				break;
 			default:
 				cerr << "Try " << argv[0] << " -h for help." << endl;
 				exit(1);
 		}
 
-	cout << "Set parameters:" << endl <<
-			" * size = (" << size.x << ", " << size.y << ")" << endl <<
+	cout << "Set parameters:" << endl;
+	if(julia)
+	{
+		cout << " * Julia set" << endl <<
+				" * c = (" << juliaC.x << ", " << juliaC.y << ")" << endl;
+	}
+	else
+	{
+		cout << " * Mandelbrot set" << endl;
+	}
+	cout << " * size = (" << size.x << ", " << size.y << ")" << endl <<
 			" * plot width = " << plotWidth << endl <<
 			" * center = (" << center.x << ", " << center.y << ")" << endl <<
 			" * multiplicity = " << multiplicity << endl <<
@@ -186,7 +229,9 @@ int main(int argc, char *argv[])
 			"Rendering parameters:" << endl <<
 			" * gamma = " << gamma << endl <<
 			" * gradian = " << (gradientPath.size()==0?"[default]":gradientPath) << endl <<
-			" * output = " << exportPath << endl << endl;
+			" * output = " << exportPath << endl;
+  
+	cout << endl;
 
 	RGBGradient *grad;
 	if(gradientPath.size() == 0)
@@ -197,7 +242,7 @@ int main(int argc, char *argv[])
 	Mandelbrot set(size, plotWidth, center, multiplicity);
 	
 	cout << "Computing..." << endl;
-	set.compute(iterations, antiAliasing);
+	set.compute(iterations, antiAliasing, julia, juliaC);
 	cout << "Rendering..." << endl;
 	set.render(gamma, *grad);
 	cout << "Saving..." << endl;
