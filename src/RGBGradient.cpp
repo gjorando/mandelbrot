@@ -123,5 +123,5 @@ uint32_t RGBGradient::getPixelValue(double v)
 	if(v < 0) v = 0;
 	if(v > 1) v = 1;
 
-	return this->at(size_t(v*(m_width-1)), 0).getPixel();
+	return this->at((size_t)(v*(m_width-1)), 0).getPixel();
 }
