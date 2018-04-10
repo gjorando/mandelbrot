@@ -9,7 +9,10 @@
 class RGBBitmap
 {
 public:
-	
+
+	/*! \brief Empty constructor. It doesn't initialize our members, and it should only be used by derived classes who don't want to use the default constructor.
+	 */
+	RGBBitmap();
 	/*! \brief Default constructor.
 	 *  \param w Width of the bitmap.
 	 *  \param h Height of the bitmap
@@ -46,7 +49,7 @@ public:
 protected:
 	
 	size_t m_width, //!< Width of the bitmap.
-		   m_height; //!< Height of the bitmap.$
+		   m_height; //!< Height of the bitmap.
 	RGBPixel *m_map;
 };
 

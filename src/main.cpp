@@ -26,7 +26,7 @@ void displayHelp(const string &name)
 			"Usage: " << name << " [option(s)]" << endl <<
 			" -h\t\tDisplay this current help and exits." << endl <<
 			" -o PATH\tChange the output path (default: " << G_DEFAULT_EXPORT_PATH << ")." << endl <<
-			" -g PATH\tSets a custom gradient. It should be a 255 pixels wide RGB(A) or greyscale PNG. Only the first line will be used." << endl <<
+			" -g PATH\tSets a custom gradient. It should be a RGB(A) or greyscale PNG. Only the first line will be used." << endl <<
 			" -x COORD\tSets a custom x center plot (default: " << G_DEFAULT_X << ")." << endl <<
 			" -y COORD\tSets a custom y center plot (default: " << G_DEFAULT_Y << ")." << endl <<
 			" -p SIZE\tSets a custom plot width (default: " << G_DEFAULT_PLOT << ")." << endl << 

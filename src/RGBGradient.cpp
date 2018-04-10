@@ -9,7 +9,7 @@ RGBGradient::RGBGradient(): RGBBitmap(255, 1)
 	}
 }
 
-RGBGradient::RGBGradient(const std::string &path): RGBBitmap(255, 1)
+RGBGradient::RGBGradient(const std::string &path)
 {
 	FILE *import;
 	png_structp pngData = NULL;
@@ -96,6 +96,7 @@ RGBGradient::RGBGradient(const std::string &path): RGBBitmap(255, 1)
 			return;
 	}
 
+	/*
 	if(width != 255) // the image must be 255 pixels wide
 	{
 		png_destroy_read_struct(&pngData, &infoData, NULL);
@@ -105,6 +106,12 @@ RGBGradient::RGBGradient(const std::string &path): RGBBitmap(255, 1)
 
 		return;
 	}
+	*/
+
+	// We can now initialize our pixel map
+	m_width = width;
+	m_height = 1;
+	m_map = new RGBPixel[m_width];
 
 	rows = png_get_rows(pngData, infoData);
 	for(size_t i = 0 ; i < width ; i++)

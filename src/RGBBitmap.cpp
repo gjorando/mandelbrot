@@ -1,5 +1,10 @@
 #include "RGBBitmap.hpp"
 
+RGBBitmap::RGBBitmap(): m_width(0), m_height(0)
+{
+	m_map = NULL;
+}
+
 RGBBitmap::RGBBitmap(size_t w, size_t h): m_width(w), m_height(h)
 {
 	m_map = new RGBPixel[m_width*m_height];
