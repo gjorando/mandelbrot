@@ -1,6 +1,6 @@
 # TODO
 
-* Histogram coloration
+* Histogram coloration (https://tech.io/playgrounds/2358/how-to-plot-the-mandelbrot-set/adding-some-colors, https://en.wikipedia.org/wiki/Mandelbrot_set)
 * Multi threading.
 * Exception handling in png loading and saving procedures
 * Interactive software to explore the set
