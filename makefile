@@ -1,12 +1,12 @@
-LIBS=-lpng -lm -lstdc++
+LIBS=-lpng -lm -lstdc++ -lsfml-system -lsfml-window -lsfml-graphics
 CFLAGS=-c -Wall -std=c++11
 CC=$(CROSS)g++
 
 SRCS=src/main.cpp\
-	 src/RGBPixel.cpp\
-	 src/RGBBitmap.cpp\
-	 src/Mandelbrot.cpp\
-	 src/RGBGradient.cpp
+     src/Fractal.cpp\
+     src/Mandelbrot.cpp\
+     src/Julia.cpp\
+     src/Gradient.cpp
 OBJ=$(subst src/,output/, $(subst .cpp,.o, $(SRCS)))
 
 all: createdirs mandelbrot
@@ -22,7 +22,7 @@ output/%.o: src/%.cpp .d/%.d
 	$(CC) $(CFLAGS) $< -o $@
 
 .d/%.d: src/%.cpp
-	$(CC) $(CFLAGS) -MM $< -MF $@
+	@$(CC) $(CFLAGS) -MM $< -MF $@
 
 clean:
 	rm -f output/*.o
